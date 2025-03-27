@@ -24,7 +24,7 @@ public class ThickFallenTreeFeature extends Feature<FallenTreeConfiguration> {
         RandomSource random = pContext.random();
         FallenTreeConfiguration config = pContext.config();
         Block material = config.material.getBlock();
-        Integer length = config.getLength().sample(random);
+        int length = config.getLength().sample(random);
         if (worldgenlevel.isEmptyBlock(blockpos.below())) {
             return false;
         } else {

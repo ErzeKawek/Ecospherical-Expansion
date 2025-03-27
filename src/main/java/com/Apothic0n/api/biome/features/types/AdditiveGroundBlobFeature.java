@@ -21,9 +21,9 @@ public class AdditiveGroundBlobFeature extends Feature<VerticalBlobConfiguration
         Block standOn = config.blockOn.getBlock();
         Block standOn2 = config.blockOn2.getBlock();
         Block blobMaterial = config.blobMaterial.getBlock();
-        Integer blobMass = config.getBlobMass().sample(random);
-        Integer blobWidth = config.getBlobWidth().sample(random);
-        Integer blobHeight = config.getBlobHeight().sample(random);
+        int blobMass = config.getBlobMass().sample(random);
+        int blobWidth = config.getBlobWidth().sample(random);
+        int blobHeight = config.getBlobHeight().sample(random);
         if (worldgenlevel.isEmptyBlock(blockpos)) {
             return false;
         } else {

@@ -21,8 +21,8 @@ public class FloatingBlobFeature extends Feature<FloatingBlobConfiguration> {
         FloatingBlobConfiguration config = pContext.config();
         Block blobSurfaceMaterial = config.blobSurfaceMaterial.getBlock();
         Block blobMaterial = config.blobMaterial.getBlock();
-        Integer blobSize = config.getBlobSize().sample(random);
-        Integer blobStretch = config.getBlobStretch().sample(random);
+        int blobSize = config.getBlobSize().sample(random);
+        int blobStretch = config.getBlobStretch().sample(random);
         float f = (float)(random.nextInt(3) + 4);
 
         for(int i = 0; f > blobSize*0.04; --i) {

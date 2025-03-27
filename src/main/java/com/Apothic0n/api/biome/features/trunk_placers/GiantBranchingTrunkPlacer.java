@@ -5,7 +5,6 @@ import com.mojang.serialization.DataResult;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.util.ExtraCodecs;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -23,19 +22,34 @@ import java.util.function.BiConsumer;
 import java.util.function.Function;
 
 public class GiantBranchingTrunkPlacer extends TrunkPlacer {
-    private static final Codec<UniformInt> BRANCH_START_CODEC = ExtraCodecs.validate(UniformInt.CODEC, uniformInt -> {
-        if (uniformInt.getMaxValue() - uniformInt.getMinValue() < 1) {
-            return DataResult.error(() -> "Need at least 2 blocks variation for the branch starts to fit both branches");
-        }
-        return DataResult.success(uniformInt);
-    });
-    public static final Codec<GiantBranchingTrunkPlacer> CODEC = RecordCodecBuilder.create(instance -> GiantBranchingTrunkPlacer.trunkPlacerParts(instance).and(instance.group(
-            (IntProvider.codec(1, 12).fieldOf("amount_of_branches")).forGetter(giantBranchingTrunkPlacer -> giantBranchingTrunkPlacer.amountOfBranches),
-            (IntProvider.codec(1, 3).fieldOf("branch_count")).forGetter(giantBranchingTrunkPlacer -> giantBranchingTrunkPlacer.branchCount),
-            (IntProvider.codec(2, 16).fieldOf("branch_horizontal_length")).forGetter(giantBranchingTrunkPlacer -> giantBranchingTrunkPlacer.branchHorizontalLength),
-            (IntProvider.codec(-48, 0, BRANCH_START_CODEC).fieldOf("branch_start_offset_from_top")).forGetter(giantBranchingTrunkPlacer -> giantBranchingTrunkPlacer.branchStartOffsetFromTop),
-            (IntProvider.codec(-48, 48).fieldOf("branch_end_height")).forGetter(giantBranchingTrunkPlacer -> giantBranchingTrunkPlacer.branchEndHeight))
-    ).apply(instance, GiantBranchingTrunkPlacer::new));
+    private static final Codec<UniformInt> BRANCH_START_CODEC = IntProvider.codec(-48, 0).comapFlatMap(
+            intProvider -> {
+                if (intProvider instanceof UniformInt uniformInt) {
+                    if (uniformInt.getMaxValue() - uniformInt.getMinValue() < 1) {
+                        return DataResult.error(() -> "Need at least 2 blocks variation for branch starts");
+                    }
+                    return DataResult.success(uniformInt);
+                }
+                return DataResult.error(() -> "Expected UniformInt");
+            },
+            Function.identity()
+    );
+
+    public static final Codec<GiantBranchingTrunkPlacer> CODEC = RecordCodecBuilder.create(instance ->
+            instance.group(
+                    // Base trunk placer fields
+                    Codec.intRange(0, 32).fieldOf("base_height").forGetter(placer -> placer.baseHeight),
+                    Codec.intRange(0, 24).fieldOf("height_rand_a").forGetter(placer -> placer.heightRandA),
+                    Codec.intRange(0, 24).fieldOf("height_rand_b").forGetter(placer -> placer.heightRandB),
+
+                    // Custom fields
+                    IntProvider.codec(1, 12).fieldOf("amount_of_branches").forGetter(placer -> placer.amountOfBranches),
+                    IntProvider.codec(1, 3).fieldOf("branch_count").forGetter(placer -> placer.branchCount),
+                    IntProvider.codec(2, 16).fieldOf("branch_horizontal_length").forGetter(placer -> placer.branchHorizontalLength),
+                    BRANCH_START_CODEC.fieldOf("branch_start_offset_from_top").forGetter(placer -> placer.branchStartOffsetFromTop),
+                    IntProvider.codec(-48, 48).fieldOf("branch_end_height").forGetter(placer -> placer.branchEndHeight)
+            ).apply(instance, GiantBranchingTrunkPlacer::new)
+    );
 
     private final IntProvider amountOfBranches;
     private final IntProvider branchCount;
@@ -46,7 +60,7 @@ public class GiantBranchingTrunkPlacer extends TrunkPlacer {
 
     public GiantBranchingTrunkPlacer(int baseHeight, int heightRandA, int heightRandB, IntProvider amountOfBranches, IntProvider branchCount, IntProvider branchHorizontalLength, UniformInt branchStartOffsetFromTop, IntProvider branchEndHeight) {
         super(baseHeight, heightRandA, heightRandB);
-        this.amountOfBranches = branchCount;
+        this.amountOfBranches = amountOfBranches;
         this.branchCount = branchCount;
         this.branchHorizontalLength = branchHorizontalLength;
         this.branchStartOffsetFromTop = branchStartOffsetFromTop;
@@ -81,7 +95,6 @@ public class GiantBranchingTrunkPlacer extends TrunkPlacer {
         }
         for (int m = 0; m < l; ++m) {
             this.placeLog(level, blockSetter, random, pos.above(m), config);
-
             this.placeLog(level, blockSetter, random, pos.above(m).north(), config);
             this.placeLog(level, blockSetter, random, pos.above(m).east(), config);
             this.placeLog(level, blockSetter, random, pos.above(m).north().east(), config);
@@ -124,7 +137,6 @@ public class GiantBranchingTrunkPlacer extends TrunkPlacer {
             boolean bl3 = random.nextFloat() < f;
             mutableBlockPos.move(bl3 ? direction2 : direction);
             this.placeLog(level, posSetter, random, mutableBlockPos, config, bl3 ? Function.identity() : propertySetter);
-
             this.placeLog(level, posSetter, random, mutableBlockPos.north(), config, bl3 ? Function.identity() : propertySetter);
             this.placeLog(level, posSetter, random, mutableBlockPos.east(), config, bl3 ? Function.identity() : propertySetter);
             this.placeLog(level, posSetter, random, mutableBlockPos.north().east(), config, bl3 ? Function.identity() : propertySetter);

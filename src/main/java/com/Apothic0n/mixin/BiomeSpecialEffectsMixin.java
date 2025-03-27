@@ -7,15 +7,18 @@ import net.minecraft.world.level.levelgen.LegacyRandomSource;
 import net.minecraft.world.level.levelgen.WorldgenRandom;
 import net.minecraft.world.level.levelgen.synth.PerlinSimplexNoise;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(targets = "net.minecraft.world.level.biome.BiomeSpecialEffects$GrassColorModifier$1")
-public class BiomeSpecialEffectsMixin {
-    private static final PerlinSimplexNoise GRASS_SATURATION_NOISE = new PerlinSimplexNoise(new WorldgenRandom(new LegacyRandomSource(2345L)), ImmutableList.of(0));
-    private static final PerlinSimplexNoise GRASS_BRIGHTNESS_NOISE = new PerlinSimplexNoise(new WorldgenRandom(new LegacyRandomSource(5432L)), ImmutableList.of(0));
-    @Inject(at = @At("RETURN"), method = "modifyColor", cancellable = true)
+@Mixin(targets = "net.minecraft.world.level.biome.BiomeSpecialEffects$GrassColorModifier")
+public abstract class BiomeSpecialEffectsMixin {
+    @Unique
+    private static final PerlinSimplexNoise GRASS_SATURATION_NOISE =
+            new PerlinSimplexNoise(new WorldgenRandom(new LegacyRandomSource(2345L)), ImmutableList.of(0));
+    @Unique
+    private static final PerlinSimplexNoise GRASS_BRIGHTNESS_NOISE =
+            new PerlinSimplexNoise(new WorldgenRandom(new LegacyRandomSource(5432L)), ImmutableList.of(0));
+
     private void eco_modifyColor(double x, double z, int grassColor, CallbackInfoReturnable<Integer> cir) {
         double saturate = -(Mth.clamp(GRASS_SATURATION_NOISE.getValue(x * 0.05, z * 0.01, false) * 0.33, -0.33, 0.33)+0.33);
         double brighten = Mth.clamp(GRASS_BRIGHTNESS_NOISE.getValue(x * 0.1, z * 0.075, false), -0.5, 0.5)+0.75;

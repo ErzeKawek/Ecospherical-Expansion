@@ -35,7 +35,7 @@ public class FloodFeature extends Feature<FloodConfiguration> {
         FloodConfiguration config = pContext.config();
         BlockState state = config.material.getState(random, origin);
         BlockState frozenState = config.frozenMaterial.getState(random, origin);
-        Integer elevation = config.getElevation().sample(random);
+        int elevation = config.getElevation().sample(random);
         Boolean frozen = config.frozen;
         BlockState barrierState = Blocks.DEAD_BUBBLE_CORAL_BLOCK.defaultBlockState();
         if (frozen) {barrierState = Blocks.BLUE_ICE.defaultBlockState();}

@@ -24,19 +24,28 @@ import java.util.function.BiConsumer;
 import java.util.function.Function;
 
 public class BranchingTrunkPlacer extends TrunkPlacer {
-    private static final Codec<UniformInt> BRANCH_START_CODEC = ExtraCodecs.validate(UniformInt.CODEC, uniformInt -> {
-        if (uniformInt.getMaxValue() - uniformInt.getMinValue() < 1) {
-            return DataResult.error(() -> "Need at least 2 blocks variation for the branch starts to fit both branches");
-        }
-        return DataResult.success(uniformInt);
-    });
-    public static final Codec<BranchingTrunkPlacer> CODEC = RecordCodecBuilder.create(instance -> BranchingTrunkPlacer.trunkPlacerParts(instance).and(instance.group(
-            (IntProvider.codec(1, 8).fieldOf("amount_of_branches")).forGetter(branchingTrunkPlacer -> branchingTrunkPlacer.amountOfBranches),
-            (IntProvider.codec(1, 3).fieldOf("branch_count")).forGetter(branchingTrunkPlacer -> branchingTrunkPlacer.branchCount),
-            (IntProvider.codec(2, 16).fieldOf("branch_horizontal_length")).forGetter(branchingTrunkPlacer -> branchingTrunkPlacer.branchHorizontalLength),
-            (IntProvider.codec(-48, 0, BRANCH_START_CODEC).fieldOf("branch_start_offset_from_top")).forGetter(branchingTrunkPlacer -> branchingTrunkPlacer.branchStartOffsetFromTop),
-            (IntProvider.codec(-48, 48).fieldOf("branch_end_height")).forGetter(branchingTrunkPlacer -> branchingTrunkPlacer.branchEndHeight))
-    ).apply(instance, BranchingTrunkPlacer::new));
+    private static final Codec<UniformInt> BRANCH_START_CODEC = ExtraCodecs.validate(
+            IntProvider.codec(-48, 0),
+            intProvider -> {
+                if (intProvider instanceof UniformInt uniformInt) {
+                    if (uniformInt.getMaxValue() - uniformInt.getMinValue() < 1) {
+                        return DataResult.error(() -> "Need at least 2 blocks variation for branch starts");
+                    }
+                    return DataResult.success(uniformInt);
+                }
+                return DataResult.error(() -> "Expected UniformInt");
+            }
+    );
+
+    public static final Codec<BranchingTrunkPlacer> CODEC = RecordCodecBuilder.mapCodec(instance -> trunkPlacerParts(instance).and(
+            instance.group(
+                    IntProvider.codec(1, 8).fieldOf("amount_of_branches").forGetter(b -> b.amountOfBranches),
+                    IntProvider.codec(1, 3).fieldOf("branch_count").forGetter(b -> b.branchCount),
+                    IntProvider.codec(2, 16).fieldOf("branch_horizontal_length").forGetter(b -> b.branchHorizontalLength),
+                    BRANCH_START_CODEC.fieldOf("branch_start_offset_from_top").forGetter(b -> b.branchStartOffsetFromTop),
+                    IntProvider.codec(-48, 48).fieldOf("branch_end_height").forGetter(b -> b.branchEndHeight)
+            )
+    ).codec();
 
     private final IntProvider amountOfBranches;
     private final IntProvider branchCount;
@@ -47,7 +56,7 @@ public class BranchingTrunkPlacer extends TrunkPlacer {
 
     public BranchingTrunkPlacer(int baseHeight, int heightRandA, int heightRandB, IntProvider amountOfBranches, IntProvider branchCount, IntProvider branchHorizontalLength, UniformInt branchStartOffsetFromTop, IntProvider branchEndHeight) {
         super(baseHeight, heightRandA, heightRandB);
-        this.amountOfBranches = branchCount;
+        this.amountOfBranches = amountOfBranches;
         this.branchCount = branchCount;
         this.branchHorizontalLength = branchHorizontalLength;
         this.branchStartOffsetFromTop = branchStartOffsetFromTop;
@@ -64,7 +73,7 @@ public class BranchingTrunkPlacer extends TrunkPlacer {
     public List<FoliagePlacer.FoliageAttachment> placeTrunk(LevelSimulatedReader level, BiConsumer<BlockPos, BlockState> blockSetter, RandomSource random, int freeTreeHeight, BlockPos pos, TreeConfiguration config) {
         boolean bl2;
         int k;
-        BranchingTrunkPlacer.setDirtAt(level, blockSetter, random, pos.below(2), config);
+        setDirtAt(level, blockSetter, random, pos.below(), config);
         int i = Math.max(0, freeTreeHeight - 1 + this.branchStartOffsetFromTop.sample(random));
         int j = Math.max(0, freeTreeHeight - 1 + this.secondBranchStartOffsetFromTop.sample(random));
         if (j >= i) {
@@ -73,20 +82,17 @@ public class BranchingTrunkPlacer extends TrunkPlacer {
         boolean bl = (k = this.branchCount.sample(random)) == 3;
         boolean bl3 = bl2 = k >= 2;
         int l = bl ? freeTreeHeight : (bl2 ? Math.max(i, j) + 1 : i + 1);
-        for (int m = 0; m <= 2; ++m) {
-            this.placeLog(level, blockSetter, random, pos.below(m), config);
-        }
         for (int m = 0; m < l; ++m) {
             this.placeLog(level, blockSetter, random, pos.above(m), config);
         }
-        ArrayList<FoliagePlacer.FoliageAttachment> list = new ArrayList<FoliagePlacer.FoliageAttachment>();
+        ArrayList<FoliagePlacer.FoliageAttachment> list = new ArrayList<>();
         list.add(new FoliagePlacer.FoliageAttachment(pos.above(l), 0, false));
         int amountOfBranches = this.amountOfBranches.sample(random);
         int branchCount = this.branchCount.sample(random);
         for (int b = 1; b <= amountOfBranches; b++) {
             BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
             Direction direction = Direction.Plane.HORIZONTAL.getRandomDirection(random);
-            Function<BlockState, BlockState> function = blockState -> (BlockState) blockState.trySetValue(RotatedPillarBlock.AXIS, direction.getAxis());
+            Function<BlockState, BlockState> function = blockState -> blockState.setValue(RotatedPillarBlock.AXIS, direction.getAxis());
             int randomNumber = (int)(Math.random()*(-branchStartOffsetFromTop.sample(random))+1);
             list.add(this.generateBranch(level, blockSetter, random, freeTreeHeight, pos.below(randomNumber), config, function, direction, i, i < l - 1, mutableBlockPos));
             if (branchCount > 1) {
@@ -103,7 +109,7 @@ public class BranchingTrunkPlacer extends TrunkPlacer {
         int m;
         Direction direction2;
         mutableBlockPos.set(pos).move(Direction.UP, secondBranchStartOffsetFromTop);
-        int i = secondBranchStartOffsetFromTop+this.branchEndHeight.sample(random);
+        int i = secondBranchStartOffsetFromTop + this.branchEndHeight.sample(random);
         boolean bl2 = bl || i < secondBranchStartOffsetFromTop;
         int j = this.branchHorizontalLength.sample(random) + (bl2 ? 1 : 0);
         BlockPos blockPos = pos.relative(direction, j).above(i);

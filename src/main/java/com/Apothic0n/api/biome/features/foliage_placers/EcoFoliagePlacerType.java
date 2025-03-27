@@ -2,6 +2,7 @@ package com.Apothic0n.api.biome.features.foliage_placers;
 
 import com.Apothic0n.EcosphericalExpansion;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
@@ -13,7 +14,7 @@ public class EcoFoliagePlacerType {
     public static final FoliagePlacerType<TallFoliagePlacer> TALL_FOLIAGE_PLACER = register("tall_foliage_placer", TallFoliagePlacer.CODEC);
 
     private static <P extends FoliagePlacer> FoliagePlacerType<P> register(String key, Codec<P> codec) {
-        return Registry.register(BuiltInRegistries.FOLIAGE_PLACER_TYPE, new ResourceLocation(EcosphericalExpansion.MODID, key), new FoliagePlacerType<P>(codec));
+        return Registry.register(BuiltInRegistries.FOLIAGE_PLACER_TYPE, ResourceLocation.fromNamespaceAndPath(EcosphericalExpansion.MODID, key), new FoliagePlacerType<>((MapCodec<P>) codec));
     }
 
     public static void init() {

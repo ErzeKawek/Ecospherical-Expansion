@@ -20,13 +20,13 @@ public class SpheroidRockFeature extends Feature<RockConfiguration> {
         RandomSource random = pContext.random();
         RockConfiguration config = pContext.config();
         Block blobMaterial = config.blobMaterial.getBlock();
-        Integer blobWidth = config.getBlobWidth().sample(random);
-        Integer blobHeight = config.getBlobHeight().sample(random);
+        int blobWidth = config.getBlobWidth().sample(random);
+        int blobHeight = config.getBlobHeight().sample(random);
         blobHeight++;
         if (worldgenlevel.isEmptyBlock(blockpos.below())) {
             return false;
         } else {
-            Integer blobWidth1 = blobWidth;
+            int blobWidth1 = blobWidth;
             for (int h = 0; h < blobHeight; ++h) {
                 if (blobWidth1 > 0) {
                     for (int w = 0; w < blobWidth1; ++w) {

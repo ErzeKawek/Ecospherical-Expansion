@@ -23,7 +23,7 @@ public class AmethystBlockClusterFeature extends Feature<NoneFeatureConfiguratio
         BlockState BuddingAmethyst = Blocks.BUDDING_AMETHYST.defaultBlockState();
         BlockState AmethystBlock = Blocks.AMETHYST_BLOCK.defaultBlockState();
         BlockState GlowingAmethyst = Blocks.AMETHYST_CLUSTER.defaultBlockState();
-        Block BioxGlowingAmethyst =  BuiltInRegistries.BLOCK.get(new ResourceLocation("biox", "glowing_amethyst"));
+        Block BioxGlowingAmethyst =  BuiltInRegistries.BLOCK.get(ResourceLocation.fromNamespaceAndPath("biox", "glowing_amethyst"));
         if (!BioxGlowingAmethyst.equals(Blocks.AIR)) {
             GlowingAmethyst = BioxGlowingAmethyst.defaultBlockState();
         }

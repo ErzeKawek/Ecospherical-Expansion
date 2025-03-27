@@ -26,9 +26,9 @@ public class SpiralFeature extends Feature<SpiralConfiguration> {
         Set<Block> validBlocks = config.validBlocks;
         Block stemMaterial = config.stemMaterial.getBlock();
         Block leafMaterial = config.leafMaterial.getBlock();
-        Integer blobMass = config.getBlobMass().sample(random);
-        Integer blobWidth = config.getBlobWidth().sample(random);
-        Integer blobHeight = config.getBlobHeight().sample(random);
+        int blobMass = config.getBlobMass().sample(random);
+        int blobWidth = config.getBlobWidth().sample(random);
+        int blobHeight = config.getBlobHeight().sample(random);
         if (!worldgenlevel.isEmptyBlock(blockpos) && validBlocks.contains(worldgenlevel.getBlockState(blockpos.above()).getBlock().defaultBlockState())) {
             worldgenlevel.setBlock(blockpos, stemMaterial.defaultBlockState(), 2);
             BlockPos blockpos1 = blockpos;

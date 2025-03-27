@@ -71,7 +71,7 @@ public class CatchingFallFeature extends Feature<CatchingFallConfiguration> {
 
                 if (j >= springconfiguration.rockCount && k >= springconfiguration.holeCount) {
                     BlockPos blockpos1 = blockpos.below();
-                    Boolean shouldGenerate = true;
+                    boolean shouldGenerate = true;
                     if (!worldgenlevel.isEmptyBlock(blockpos1.below())) {
                         blockpos1 = blockpos1.above();
                         if (worldgenlevel.isEmptyBlock(blockpos1.north())) {

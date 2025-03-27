@@ -2,6 +2,7 @@ package com.Apothic0n.api.biome.features.trunk_placers;
 
 import com.Apothic0n.EcosphericalExpansion;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
@@ -17,7 +18,7 @@ public class EcoTrunkPlacerType {
 
     public static final TrunkPlacerType<GiantBranchingTrunkPlacer> GIANT_BRANCHING_TRUNK_PLACER = register("giant_branching_trunk_placer", GiantBranchingTrunkPlacer.CODEC);
     private static <P extends TrunkPlacer> TrunkPlacerType<P> register(String key, Codec<P> codec) {
-        return Registry.register(BuiltInRegistries.TRUNK_PLACER_TYPE, new ResourceLocation(EcosphericalExpansion.MODID, key), new TrunkPlacerType<P>(codec));
+        return Registry.register(BuiltInRegistries.TRUNK_PLACER_TYPE, ResourceLocation.fromNamespaceAndPath(EcosphericalExpansion.MODID, key), new TrunkPlacerType<P>((MapCodec<P>) codec));
     }
 
     public static void init() {

@@ -3,6 +3,7 @@ package com.Apothic0n.api.biome.features.configurations;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.util.valueproviders.IntProvider;
+import net.minecraft.util.valueproviders.IntProviders;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 
@@ -14,11 +15,11 @@ public class VerticalBlobConfiguration implements FeatureConfiguration {
             return v.blockOn2;
         }), BlockState.CODEC.fieldOf("blobMaterial").forGetter((v) -> {
             return v.blobMaterial;
-        }), IntProvider.codec(1, 1024).fieldOf("blobMass").forGetter((v) -> {
+        }), IntProviders.codec(1, 1024).fieldOf("blobMass").forGetter((v) -> {
             return v.blobMass;
-        }), IntProvider.codec(1, 32).fieldOf("blobWidth").forGetter((v) -> {
+        }), IntProviders.codec(1, 32).fieldOf("blobWidth").forGetter((v) -> {
             return v.blobWidth;
-        }), IntProvider.codec(1, 128).fieldOf("blobHeight").forGetter((v) -> {
+        }), IntProviders.codec(1, 128).fieldOf("blobHeight").forGetter((v) -> {
             return v.blobHeight;
         })).apply(fields, VerticalBlobConfiguration::new);
     });

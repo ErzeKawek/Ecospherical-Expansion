@@ -7,6 +7,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.world.level.LevelSimulatedReader;
+import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.BlobFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
@@ -25,7 +26,7 @@ public class TallFoliagePlacer extends BlobFoliagePlacer {
     }
 
     @Override
-    protected void createFoliage(LevelSimulatedReader level, FoliageSetter blockSetter, RandomSource random, TreeConfiguration config, int maxFreeTreeHeight, FoliageAttachment attachment, int foliageHeight, int foliageRadius, int offset) {
+    protected void createFoliage(WorldGenLevel level, FoliageSetter blockSetter, RandomSource random, TreeConfiguration config, int maxFreeTreeHeight, FoliageAttachment attachment, int foliageHeight, int foliageRadius, int offset) {
         foliageHeight = foliageHeight - 4;
         this.placeLeavesRow(level, blockSetter, random, config, attachment.pos(), (foliageRadius - 3) + (offset != offset - foliageHeight ? 1 : 0), offset, attachment.doubleTrunk());
         offset--;
@@ -48,7 +49,7 @@ public class TallFoliagePlacer extends BlobFoliagePlacer {
         this.placeLeavesRow(level, blockSetter, random, config, attachment.pos(), (foliageRadius - 2) + (offset != offset - foliageHeight ? 1 : 0), offset, attachment.doubleTrunk());
     }
 
-    protected void placeThinLeavesRow(LevelSimulatedReader level, FoliagePlacer.FoliageSetter blockSetter, RandomSource random, TreeConfiguration config, BlockPos blockPos, int foliageHeight, int foliageRadius, boolean offset) {
+    protected void placeThinLeavesRow(WorldGenLevel level, FoliagePlacer.FoliageSetter blockSetter, RandomSource random, TreeConfiguration config, BlockPos blockPos, int foliageHeight, int foliageRadius, boolean offset) {
         int i = offset ? 1 : 0;
         BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
 

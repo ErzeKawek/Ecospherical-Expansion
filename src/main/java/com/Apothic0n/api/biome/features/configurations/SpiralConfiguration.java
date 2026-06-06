@@ -7,6 +7,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.util.valueproviders.IntProvider;
+import net.minecraft.util.valueproviders.IntProviders;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
@@ -20,11 +21,11 @@ public class SpiralConfiguration implements FeatureConfiguration {
             return v.stemMaterial;
         }), BlockState.CODEC.fieldOf("leafMaterial").forGetter((v) -> {
             return v.leafMaterial;
-        }), IntProvider.codec(1, 1024).fieldOf("blobMass").forGetter((v) -> {
+        }), IntProviders.codec(1, 1024).fieldOf("blobMass").forGetter((v) -> {
             return v.blobMass;
-        }), IntProvider.codec(1, 32).fieldOf("blobWidth").forGetter((v) -> {
+        }), IntProviders.codec(1, 32).fieldOf("blobWidth").forGetter((v) -> {
             return v.blobWidth;
-        }), IntProvider.codec(1, 128).fieldOf("blobHeight").forGetter((v) -> {
+        }), IntProviders.codec(1, 128).fieldOf("blobHeight").forGetter((v) -> {
             return v.blobHeight;
         })).apply(fields, SpiralConfiguration::new);
     });

@@ -19,7 +19,7 @@ public class Stemmed2x2x2CubeFeature extends Feature<SimpleBlockConfiguration> {
         WorldGenLevel worldgenlevel = pContext.level();
         BlockPos blockpos = pContext.origin();
         RandomSource random = pContext.random();
-        BlockState material = pContext.config().toPlace().getState(random, blockpos);
+        BlockState material = pContext.config().toPlace().getState(worldgenlevel, random, blockpos);
         if (worldgenlevel.isEmptyBlock(blockpos.below())) {
             return false;
         } else {

@@ -1,12 +1,9 @@
 package com.Apothic0n.api.biome.features.decorators;
 
 import com.mojang.serialization.Codec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
-import net.minecraft.util.valueproviders.FloatProvider;
 import net.minecraft.world.level.LevelSimulatedReader;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
@@ -34,7 +31,7 @@ public class MushroomsDecorator extends TreeDecorator {
 
     @Override
     public void place(TreeDecorator.Context context) {
-        LevelSimulatedReader level = context.level();
+        WorldGenLevel level = context.level();
         RandomSource randomSource = context.random();
         ObjectArrayList<BlockPos> list = context.roots();
         if (randomSource.nextFloat() >= this.probability) {

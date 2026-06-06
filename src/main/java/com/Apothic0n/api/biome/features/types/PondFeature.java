@@ -25,8 +25,8 @@ public class PondFeature extends Feature<DoubleBlockConfiguration> {
         WorldGenLevel worldgenlevel = pContext.level();
         BlockPos blockpos = pContext.origin();
         RandomSource random = pContext.random();
-        BlockState material = pContext.config().toPlace().getState(random, blockpos);
-        BlockState slab = pContext.config().slabToPlace().getState(random, blockpos);
+        BlockState material = pContext.config().toPlace().getState(worldgenlevel, random, blockpos);
+        BlockState slab = pContext.config().slabToPlace().getState(worldgenlevel, random, blockpos);
         BlockState water = Blocks.WATER.defaultBlockState();
         BlockState mud = Blocks.MUD.defaultBlockState();
         if (!worldgenlevel.getBlockState(blockpos.offset(3, 0, 0)).canBeReplaced() && !worldgenlevel.getBlockState(blockpos.offset(0, 0, 3)).canBeReplaced() ||

@@ -6,14 +6,16 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.IntProvider;
+import net.minecraft.util.valueproviders.IntProviders;
 import net.minecraft.world.level.LevelSimulatedReader;
+import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
 
 public class GiantPineFoliagePlacer extends FoliagePlacer {
     public static final Codec<GiantPineFoliagePlacer> CODEC = RecordCodecBuilder.create(instance -> GiantPineFoliagePlacer.foliagePlacerParts(instance).and(
-            (IntProvider.codec(0, 42).fieldOf("crown_height")).forGetter(giantPineFoliagePlacer -> giantPineFoliagePlacer.crownHeight)
+            (IntProviders.codec(0, 42).fieldOf("crown_height")).forGetter(giantPineFoliagePlacer -> giantPineFoliagePlacer.crownHeight)
     ).apply(instance, GiantPineFoliagePlacer::new));
 
     private final IntProvider crownHeight;
@@ -28,7 +30,7 @@ public class GiantPineFoliagePlacer extends FoliagePlacer {
     }
 
     @Override
-    protected void createFoliage(LevelSimulatedReader level, FoliagePlacer.FoliageSetter blockSetter, RandomSource random, TreeConfiguration config, int maxFreeTreeHeight, FoliagePlacer.FoliageAttachment attachment, int foliageHeight, int foliageRadius, int offset) {
+    protected void createFoliage(WorldGenLevel level, FoliagePlacer.FoliageSetter blockSetter, RandomSource random, TreeConfiguration config, int maxFreeTreeHeight, FoliagePlacer.FoliageAttachment attachment, int foliageHeight, int foliageRadius, int offset) {
         BlockPos blockPos = attachment.pos();
         int i = 0;
         for (int j = blockPos.getY() - foliageHeight + offset; j <= blockPos.getY() + offset; ++j) {

@@ -4,6 +4,7 @@ import com.Apothic0n.api.biome.features.configurations.FloodConfiguration;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.SectionPos;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
@@ -29,19 +30,21 @@ public class FloodFeature extends Feature<FloodConfiguration> {
 
     public boolean place(FeaturePlaceContext<FloodConfiguration> pContext) {
         WorldGenLevel worldgenlevel = pContext.level();
-        ChunkPos chunkOrigin = new ChunkPos(pContext.origin());
-        BlockPos origin = new BlockPos(chunkOrigin.getMiddleBlockX(), pContext.origin().getY(), chunkOrigin.getMiddleBlockZ());
+        BlockPos rawOrigin = pContext.origin();
+        int chunkMiddleX = (SectionPos.blockToSectionCoord(rawOrigin.getX()) << 4) + 8;
+        int chunkMiddleZ = (SectionPos.blockToSectionCoord(rawOrigin.getZ()) << 4) + 8;
+        BlockPos origin = new BlockPos(chunkMiddleX, rawOrigin.getY(), chunkMiddleZ);
         RandomSource random = pContext.random();
         FloodConfiguration config = pContext.config();
-        BlockState state = config.material.getState(random, origin);
-        BlockState frozenState = config.frozenMaterial.getState(random, origin);
+        BlockState state = config.material.getState(worldgenlevel, random, origin);
+        BlockState frozenState = config.frozenMaterial.getState(worldgenlevel, random, origin);
         int elevation = config.getElevation().sample(random);
         Boolean frozen = config.frozen;
         BlockState barrierState = Blocks.DEAD_BUBBLE_CORAL_BLOCK.defaultBlockState();
         if (frozen) {barrierState = Blocks.BLUE_ICE.defaultBlockState();}
         for (int x = origin.getX()-16; x < origin.getX()+16; ++x) {
             for (int z = origin.getZ()-16; z < origin.getZ()+16; ++z) {
-                for (int y = elevation; y > worldgenlevel.getMinBuildHeight() + 1; --y) {
+                for (int y = elevation; y > worldgenlevel.getMinY() + 1; --y) {
                     BlockPos pos = new BlockPos(x, y, z);
                     if ((worldgenlevel.getBlockState(pos).is(BlockTags.DIRT) || worldgenlevel.getBlockState(pos).is(BlockTags.SAND) || worldgenlevel.getBlockState(pos).is(Blocks.SNOW_BLOCK) || worldgenlevel.getBlockState(pos).is(Blocks.POWDER_SNOW)) && !worldgenlevel.getFluidState(pos).is(Fluids.LAVA) && worldgenlevel.getBlockState(pos) != state && worldgenlevel.getBlockState(pos) != Blocks.DEAD_BUBBLE_CORAL_BLOCK.defaultBlockState() && worldgenlevel.getBiome(pos).is(BiomeTags.IS_RIVER) && !worldgenlevel.getBiome(pos).is(Biomes.RIVER)) {
                         worldgenlevel.setBlock(pos, state, UPDATE_NONE);

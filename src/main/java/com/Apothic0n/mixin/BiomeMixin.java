@@ -20,7 +20,7 @@ public abstract class BiomeMixin {
      */
     @Overwrite
     public int getGrassColor(double posX, double posZ) {
-        int i = this.specialEffects.getGrassColorOverride().orElseGet(this::getGrassColorFromTexture);
-        return this.specialEffects.getGrassColorModifier().modifyColor(posX, posZ, i);
+        int i = this.specialEffects.grassColorOverride().orElseGet(this::getGrassColorFromTexture);
+        return this.specialEffects.grassColorModifier().modifyColor(posX, posZ, i);
     }
 }

@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "id": "eco",
   "version": "${version}",
-  "name": "Ecospherical Expansion Reloaded",
+  "name": "Ecospherical Expansion Reforked",
   "description": "Expanding the ecosphere!",
   "authors": [
     "Apothic0n (Original Author)",
@@ -30,9 +30,9 @@
 
   "accessWidener" : "eco.accesswidener",
   "depends": {
-    "fabricloader": ">=0.14.21",
-    "minecraft": "~1.21.1",
-    "java": ">=21",
+    "fabricloader": ">=0.19.1",
+    "minecraft": "26.1.2",
+    "java": ">=25",
     "fabric-api": "*"
   },
   "suggests": {

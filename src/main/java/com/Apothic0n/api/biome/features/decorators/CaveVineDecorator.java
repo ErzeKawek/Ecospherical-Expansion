@@ -3,11 +3,9 @@ package com.Apothic0n.api.biome.features.decorators;
 import com.mojang.serialization.Codec;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.core.BlockPos;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.LevelSimulatedReader;
+import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.predicate.BlockStatePredicate;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -29,7 +27,7 @@ public class CaveVineDecorator extends TreeDecorator {
 
     @Override
     public void place(Context context) {
-        LevelSimulatedReader level = context.level();
+        WorldGenLevel level = context.level();
         RandomSource randomSource = context.random();
         ObjectArrayList<BlockPos> list = context.leaves();
         list.forEach(blockPos -> {

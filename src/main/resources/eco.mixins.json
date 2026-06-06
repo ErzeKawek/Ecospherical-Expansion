@@ -1,5 +1,5 @@
 {
-  "compatibilityLevel": "JAVA_17",
+  "compatibilityLevel": "JAVA_21",
   "package": "com.Apothic0n.mixin",
   "refmap": "mixins.eco.refmap.json",
   "required": true,
@@ -8,7 +8,6 @@
   },
   "mixins": [
     "BiomeSpecialEffectsMixin",
-    "DripstoneUtilsMixin",
     "BiomeMixin"
   ],
   "client": [

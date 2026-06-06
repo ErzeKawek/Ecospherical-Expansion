@@ -97,7 +97,7 @@ public class NonFloatingPatchFeature extends Feature<VegetationPatchConfiguratio
 
     protected boolean placeGround(WorldGenLevel level, VegetationPatchConfiguration pContext, Predicate<BlockState> statePredicate, RandomSource random, BlockPos.MutableBlockPos blockPos, int depth) {
         for(int i = 0; i < depth; ++i) {
-            BlockState blockstate = pContext.groundState.getState(random, blockPos);
+            BlockState blockstate = pContext.groundState.getState(level, random, blockPos);
             BlockState blockstate1 = level.getBlockState(blockPos);
             if (!blockstate.is(blockstate1.getBlock())) {
                 if (!statePredicate.test(blockstate1)) {

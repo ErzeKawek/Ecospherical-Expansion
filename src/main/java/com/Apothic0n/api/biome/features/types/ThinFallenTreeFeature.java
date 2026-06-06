@@ -21,7 +21,7 @@ public class ThinFallenTreeFeature extends Feature<FallenTreeConfiguration> {
 
     public boolean place(FeaturePlaceContext<FallenTreeConfiguration> pContext) {
         WorldGenLevel worldgenlevel = pContext.level();
-        BlockPos blockpos = pContext.origin();
+        BlockPos blockpos = pContext        .origin();
         RandomSource random = pContext.random();
         FallenTreeConfiguration config = pContext.config();
         Block material = config.material.getBlock();

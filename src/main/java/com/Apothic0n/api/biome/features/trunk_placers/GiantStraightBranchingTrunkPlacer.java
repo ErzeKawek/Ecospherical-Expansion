@@ -7,7 +7,11 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.IntProvider;
+import net.minecraft.util.valueproviders.IntProviders;
 import net.minecraft.world.level.LevelSimulatedReader;
+import net.minecraft.world.level.WorldGenLevel;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
@@ -22,7 +26,7 @@ import java.util.function.BiConsumer;
 
 public class GiantStraightBranchingTrunkPlacer extends TrunkPlacer {
     public static final Codec<GiantStraightBranchingTrunkPlacer> CODEC = RecordCodecBuilder.create(instance -> GiantStraightBranchingTrunkPlacer.trunkPlacerParts(instance).and(
-            (IntProvider.codec(-42, 42).fieldOf("max_branch_height")).forGetter(giantStraightBranchingTrunkPlacer -> giantStraightBranchingTrunkPlacer.maxBranchHeight)
+            (IntProviders.codec(-42, 42).fieldOf("max_branch_height")).forGetter(giantStraightBranchingTrunkPlacer -> giantStraightBranchingTrunkPlacer.maxBranchHeight)
     ).apply(instance, GiantStraightBranchingTrunkPlacer::new));
 
     private final IntProvider maxBranchHeight;
@@ -37,8 +41,12 @@ public class GiantStraightBranchingTrunkPlacer extends TrunkPlacer {
     }
 
     @Override
-    public List<FoliagePlacer.FoliageAttachment> placeTrunk(LevelSimulatedReader level, BiConsumer<BlockPos, BlockState> blockSetter, RandomSource random, int freeTreeHeight, BlockPos pos, TreeConfiguration config) {
-        StraightTrunkPlacer.setDirtAt(level, blockSetter, random, pos.below(), config);
+    public List<FoliagePlacer.FoliageAttachment> placeTrunk(WorldGenLevel level, BiConsumer<BlockPos, BlockState> blockSetter, RandomSource random, int freeTreeHeight, BlockPos pos, TreeConfiguration config) {
+        BlockPos below = pos.below();
+        BlockState currentState = level.getBlockState(below);
+        if (currentState.canBeReplaced()) {
+            level.setBlock(below, Blocks.DIRT.defaultBlockState(), Block.UPDATE_ALL);
+        }
         int maxHeight = maxBranchHeight.sample(random);
         maxHeight = freeTreeHeight-maxHeight;
         for (int i = 0; i < freeTreeHeight; ++i) {
@@ -99,7 +107,7 @@ public class GiantStraightBranchingTrunkPlacer extends TrunkPlacer {
                 new FoliagePlacer.FoliageAttachment(pos.above(freeTreeHeight).east(), 0, false), new FoliagePlacer.FoliageAttachment(pos.above(freeTreeHeight).north().east(), 0, false));
     }
 
-    private void placeBranch(LevelSimulatedReader level, BiConsumer<BlockPos, BlockState> blockSetter, RandomSource random, BlockPos pos, TreeConfiguration config, Direction.Axis axis) {
+    private void placeBranch(WorldGenLevel level, BiConsumer<BlockPos, BlockState> blockSetter, RandomSource random, BlockPos pos, TreeConfiguration config, Direction.Axis axis) {
         if (level.isStateAtPosition(pos.below(), BlockBehaviour.BlockStateBase::isAir) && level.isStateAtPosition(pos, BlockBehaviour.BlockStateBase::isAir)) {
             this.placeLog(level, blockSetter, random, pos, config, blockState -> blockState.trySetValue(RotatedPillarBlock.AXIS, axis));
         }

@@ -4,7 +4,7 @@ import com.Apothic0n.EcosphericalExpansion;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.levelgen.feature.treedecorators.*;
 
 public abstract class EcoTreeDecoratorType {
@@ -14,7 +14,7 @@ public abstract class EcoTreeDecoratorType {
     private static <P extends TreeDecorator> TreeDecoratorType<P> register(String key, Codec<P> codec) {
         return Registry.register(
                 BuiltInRegistries.TREE_DECORATOR_TYPE,
-                ResourceLocation.fromNamespaceAndPath(EcosphericalExpansion.MODID, key),
+                Identifier.fromNamespaceAndPath(EcosphericalExpansion.MODID, key),
                 new TreeDecoratorType<>(codec.fieldOf("value")) // Convert Codec to MapCodec
         );
     }

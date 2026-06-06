@@ -61,7 +61,7 @@ public class EcosphericalExpansion implements ModInitializer {
                             throw new RuntimeException(e);
                         }
                     }
-                    if (pos.getY() >= level.getMaxBuildHeight() && level.getBlockState(pos.below()).is(Blocks.BEDROCK)) {
+                    if (pos.getY() >= level.getMaxY() && level.getBlockState(pos.below()).is(Blocks.BEDROCK)) {
                         pos = pos.below(64);
                         generateSquare(level, pos.below(2), Blocks.OAK_WOOD.defaultBlockState());
                         generateSquare(level, pos.below(), Blocks.OAK_WOOD.defaultBlockState());
@@ -71,7 +71,7 @@ public class EcosphericalExpansion implements ModInitializer {
                         entity.teleportRelative(0, -64, 0);
                     } else if (!hasSpawnPlatformGeneratedBefore) {
                         boolean overVoid = true;
-                        for (int i = level.getMinBuildHeight() - 1; i < level.getMaxBuildHeight(); i++) {
+                        for (int i = level.getMinY() - 1; i < level.getMaxY(); i++) {
                             if (!level.getBlockState(new BlockPos(pos.getX(), i, pos.getZ())).isAir()) {
                                 overVoid = false;
                             }

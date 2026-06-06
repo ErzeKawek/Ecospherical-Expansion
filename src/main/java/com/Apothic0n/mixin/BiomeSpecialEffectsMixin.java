@@ -1,7 +1,6 @@
 package com.Apothic0n.mixin;
 
 import com.google.common.collect.ImmutableList;
-import net.minecraft.util.FastColor;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.levelgen.LegacyRandomSource;
 import net.minecraft.world.level.levelgen.WorldgenRandom;
@@ -22,14 +21,15 @@ public abstract class BiomeSpecialEffectsMixin {
     private void eco_modifyColor(double x, double z, int grassColor, CallbackInfoReturnable<Integer> cir) {
         double saturate = -(Mth.clamp(GRASS_SATURATION_NOISE.getValue(x * 0.05, z * 0.01, false) * 0.33, -0.33, 0.33)+0.33);
         double brighten = Mth.clamp(GRASS_BRIGHTNESS_NOISE.getValue(x * 0.1, z * 0.075, false), -0.5, 0.5)+0.75;
-        float red = (float) Mth.clamp(FastColor.ABGR32.red(grassColor), 1, 255)/255;
-        float green = (float) Mth.clamp(FastColor.ABGR32.green(grassColor), 1, 255)/255;
-        float blue = (float) Mth.clamp(FastColor.ABGR32.blue(grassColor), 1, 255)/255;
-        float gray = (float) ((red+green+blue)/(3+brighten));
-        red = (float) Mth.clamp(red + (gray - red) * saturate, 0.1, 1);
+        int alpha = (grassColor >> 24) & 0xFF;
+        float red   = (float) Mth.clamp((grassColor >> 16) & 0xFF, 1, 255) / 255f;
+        float green = (float) Mth.clamp((grassColor >> 8)  & 0xFF, 1, 255) / 255f;
+        float blue  = (float) Mth.clamp( grassColor        & 0xFF, 1, 255) / 255f;
+        float gray = (float) ((red + green + blue) / (3 + brighten));
+        red   = (float) Mth.clamp(red   + (gray - red)   * saturate, 0.1, 1);
         green = (float) Mth.clamp(green + (gray - green) * saturate, 0.1, 1);
-        blue = (float) Mth.clamp(blue + (gray - blue) * saturate, 0.1, 1);
-        int newGrassColor = FastColor.ABGR32.color(FastColor.ABGR32.alpha(grassColor),(int) (blue*255), (int) (green*255), (int) (red*255));
+        blue  = (float) Mth.clamp(blue  + (gray - blue)  * saturate, 0.1, 1);
+        int newGrassColor = (alpha << 24) | ((int)(red * 255) << 16) | ((int)(green * 255) << 8) | (int)(blue * 255);
         cir.setReturnValue(newGrassColor);
     }
 }

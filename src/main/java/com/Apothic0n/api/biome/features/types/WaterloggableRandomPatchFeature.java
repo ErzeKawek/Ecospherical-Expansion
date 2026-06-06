@@ -10,13 +10,8 @@ import net.minecraft.world.level.block.DoublePlantBlock;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
-import net.minecraft.world.level.levelgen.feature.configurations.RandomPatchConfiguration;
-import net.minecraft.world.level.levelgen.placement.PlacementContext;
-import net.minecraft.world.level.levelgen.placement.PlacementModifier;
-import org.apache.commons.lang3.mutable.MutableBoolean;
 
 import java.util.stream.Stream;
 
@@ -37,7 +32,7 @@ public class WaterloggableRandomPatchFeature extends Feature<WaterloggableRandom
         for (int l = 0; l < randomPatchConfiguration.tries; ++l) {
             mutableBlockPos.setWithOffset(blockpos, random.nextInt(j) - random.nextInt(j), random.nextInt(k) - random.nextInt(k), random.nextInt(j) - random.nextInt(j));
             if (worldgenlevel.getBlockState(mutableBlockPos).equals(Blocks.WATER)) {
-                placeBlock(worldgenlevel, mutableBlockPos, randomPatchConfiguration.to_place.getState(random, mutableBlockPos));
+                placeBlock(worldgenlevel, mutableBlockPos, randomPatchConfiguration.to_place.getState(worldgenlevel, random, mutableBlockPos));
             } else {
 
             }

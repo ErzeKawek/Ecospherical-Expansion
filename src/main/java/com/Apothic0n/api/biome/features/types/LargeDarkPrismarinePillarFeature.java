@@ -43,8 +43,8 @@ public class LargeDarkPrismarinePillarFeature extends Feature<LargeDripstoneConf
                     return false;
                 } else {
                     int i = (int) ((float) column$range.height() * config.maxColumnRadiusToCaveHeightRatio);
-                    int j = Mth.clamp(i, config.columnRadius.getMinValue(), config.columnRadius.getMaxValue());
-                    int k = Mth.randomBetweenInclusive(random, config.columnRadius.getMinValue(), j);
+                    int j = Mth.clamp(i, config.columnRadius.minInclusive(), config.columnRadius.maxInclusive());
+                    int k = Mth.randomBetweenInclusive(random, config.columnRadius.minInclusive(), j);
                     LargePillar largepillarfeature$largepillar = makeDarkPrismarine(blockpos.atY(column$range.ceiling() - 1), false, random, k, config.stalactiteBluntness, config.heightScale);
                     LargePillar largepillarfeature$largepillar1 = makeDarkPrismarine(blockpos.atY(column$range.floor() + 1), true, random, k, config.stalagmiteBluntness, config.heightScale);
                     WindOffsetter largepillarfeature$windoffsetter;

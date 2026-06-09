@@ -1,0 +1,17 @@
+{
+  "compatibilityLevel": "JAVA_21",
+  "package": "net.erzekawek.mixin",
+  "refmap": "mixins.terraex.refmap.json",
+  "required": true,
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "mixins": [
+    "BiomeSpecialEffectsMixin",
+    "BiomeMixin"
+  ],
+  "client": [
+  ],
+  "server": [
+  ]
+}

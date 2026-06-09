@@ -39,12 +39,12 @@ loom {
 
     mixin {
         // When disabled tiny remapper will be used to remap Mixins instead of the AP. Experimental.
-        defaultRefmapName = "mixins.eco.refmap.json"
+        defaultRefmapName = "mixins.terraex.refmap.json"
 
         // See https://github.com/FabricMC/fabric-loom/blob/dev/0.11/src/main/java/net/fabricmc/loom/api/MixinExtensionAPI.java for options to add additional sourcesets
     }
 
-    accessWidenerPath = file("src/main/resources/eco.accesswidener")
+    accessWidenerPath = file("src/main/resources/terraex.accesswidener")
 
     mods {
         "eco" {
@@ -95,17 +95,7 @@ javadoc {
     options.tags = ["reason"]
     options.stylesheetFile = new File(projectDir, "javadoc.css");
 }
-
-task javadocJar(type: Jar, dependsOn: javadoc) {
-    archiveClassifier = 'javadoc'
-    from javadoc.destinationDir
-}
-
-jar {
-    from "LICENSE"
-}
 artifacts {
     archives sourcesJar
-    archives javadocJar
 }
 def env = System.getenv()

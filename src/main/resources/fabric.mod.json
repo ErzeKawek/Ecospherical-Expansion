@@ -1,34 +1,34 @@
 {
   "schemaVersion": 1,
-  "id": "eco",
+  "id": "terraex",
   "version": "${version}",
-  "name": "Ecospherical Expansion Reforked",
-  "description": "Expanding the ecosphere!",
+  "name": "Terraspherical Expansion",
+  "description": "Expanding the Terrasphere!",
   "authors": [
     "Apothic0n (Original Author)",
     "ErzeKawek (Fork Author)"
   ],
   "contact": {
     "homepage": "https://discord.gg/uWjKpHwq5W",
-    "sources": "https://github.com/Apothicon02/Ecospherical-Expansion"
+    "sources": "https://github.com/ErzeKawek/Ecospherical-Expansion"
   },
   "license": "MIT",
-  "icon": "assets/eco/icon.png",
+  "icon": "assets/terraex/icon.png",
   "environment": "*",
   "entrypoints": {
     "main": [
-      "com.Apothic0n.EcosphericalExpansion"
+      "net.erzekawek.TerrasphericalExpansion"
     ],
     "client": [
     ]
   },
   "mixins": [
     {
-      "config": "eco.mixins.json"
+      "config": "terraex.mixins.json"
     }
   ],
 
-  "accessWidener" : "eco.accesswidener",
+  "accessWidener" : "terraex.accesswidener",
   "depends": {
     "fabricloader": ">=0.19.1",
     "minecraft": "26.1.2",

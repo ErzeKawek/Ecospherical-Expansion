@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "id": "terraex",
+  "id": "eco",
   "version": "${version}",
   "name": "Terraspherical Expansion",
   "description": "Expanding the Terrasphere!",
@@ -13,7 +13,7 @@
     "sources": "https://github.com/ErzeKawek/Ecospherical-Expansion"
   },
   "license": "MIT",
-  "icon": "assets/terraex/icon.png",
+  "icon": "assets/eco/icon.png",
   "environment": "*",
   "entrypoints": {
     "main": [
@@ -24,11 +24,11 @@
   },
   "mixins": [
     {
-      "config": "terraex.mixins.json"
+      "config": "eco.mixins.json"
     }
   ],
 
-  "accessWidener" : "terraex.accesswidener",
+  "accessWidener" : "eco.accesswidener",
   "depends": {
     "fabricloader": ">=0.19.1",
     "minecraft": "26.1.2",

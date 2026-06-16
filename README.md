@@ -1,2 +1,2 @@
-# Ecospherical-Expansion
- Expanding the ecosphere!
+# Terraspherical Expansion
+ Expanding the terrasphere!

@@ -90,7 +90,7 @@
           },
           "argument2": {
             "type": "minecraft:min",
-            "argument1": "eco:colby",
+            "argument1": "terraex:colby",
             "argument2": {
               "type": "minecraft:add",
               "argument1": {
@@ -111,7 +111,7 @@
         },
         "argument2": {
           "type": "minecraft:min",
-          "argument1": "eco:colby",
+          "argument1": "terraex:colby",
           "argument2": {
             "type": "minecraft:add",
             "argument1": {
@@ -132,7 +132,7 @@
       },
       "argument2": {
         "type": "minecraft:min",
-        "argument1": "eco:colby_jacked_up",
+        "argument1": "terraex:colby_jacked_up",
         "argument2": {
           "type": "minecraft:add",
           "argument1": {

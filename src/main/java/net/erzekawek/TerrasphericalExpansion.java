@@ -27,7 +27,7 @@ import java.nio.file.Path;
 import static net.minecraft.world.level.block.Block.UPDATE_ALL;
 
 public class TerrasphericalExpansion implements ModInitializer {
-    public static final String MODID = "terraex";
+    public static final String MODID = "eco";
     @Override
     public void onInitialize() {
         TerraFeatureRegistry.register();

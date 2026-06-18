@@ -1,27 +1,32 @@
 {
+  "attributes": {
+    "minecraft:visual/fog_color": 12638463,
+    "minecraft:visual/water_fog_color": 272948,
+    "minecraft:visual/sky_color": 9806079,
+    "minecraft:audio/background_music": {
+      "default": {
+        "max_delay": 24000,
+        "min_delay": 12000,
+        "replace_current_music": false,
+        "sound": "minecraft:music.overworld.badlands"
+      }
+    },
+    "minecraft:audio/ambient_sounds": {
+      "mood": {
+        "block_search_extent": 8,
+        "offset": 2,
+        "sound": "minecraft:ambient.cave",
+        "tick_delay": 6000
+      }
+    }
+  },
   "temperature": 2,
   "downfall": 0,
   "has_precipitation": false,
-  "category": "forest",
+  "temperature_modifier": "none",
   "effects": {
-    "sky_color": 9806079,
-    "fog_color": 12638463,
     "water_color": 7318712,
-    "water_fog_color": 272948,
-    "grass_color": 9470285,
-    "foliage_color": 10387789,
-    "mood_sound": {
-      "sound": "minecraft:ambient.cave",
-      "tick_delay": 6000,
-      "block_search_extent": 8,
-      "offset": 2
-    },
-    "music": {
-      "sound": "minecraft:music.overworld.badlands",
-      "min_delay": 12000,
-      "max_delay": 24000,
-      "replace_current_music": false
-    }
+    "grass_color_modifier": "none"
   },
   "spawners": {
     "ambient": [
@@ -97,13 +102,11 @@
     "water_creature": []
   },
   "spawn_costs": {},
-  "carvers": {
-    "air": [
-      "minecraft:cave",
-      "minecraft:cave_extra_underground",
-      "minecraft:canyon"
-    ]
-  },
+  "carvers": [
+    "minecraft:canyon",
+    "minecraft:cave",
+    "minecraft:cave_extra_underground"
+  ],
   "features": [
     [],
     [

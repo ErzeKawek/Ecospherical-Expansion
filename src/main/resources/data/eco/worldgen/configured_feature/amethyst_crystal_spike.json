@@ -1,5 +1,5 @@
 {
-  "type": "terraex:crystal_spike",
+  "type": "eco:crystal_spike",
   "config": {
     "blockOn": {
       "Name": "minecraft:smooth_basalt"

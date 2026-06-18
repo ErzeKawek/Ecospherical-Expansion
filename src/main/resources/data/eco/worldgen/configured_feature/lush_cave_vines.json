@@ -107,10 +107,8 @@
           "property": "age",
           "values": {
             "type": "minecraft:uniform",
-            "value": {
-              "min_inclusive": 12,
-              "max_inclusive": 25
-            }
+            "min_inclusive": 12,
+            "max_inclusive": 25
           },
           "source": {
             "type": "minecraft:weighted_state_provider",

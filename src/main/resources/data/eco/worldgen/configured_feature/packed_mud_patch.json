@@ -26,7 +26,8 @@
             }
           }
         }
-      ]
+      ],
+      "type": "minecraft:rule_based_state_provider"
     },
     "target": {
       "type": "minecraft:matching_blocks",
@@ -47,10 +48,8 @@
     },
     "radius": {
       "type": "minecraft:uniform",
-      "value": {
-        "min_inclusive": 2,
-        "max_inclusive": 6
-      }
+      "min_inclusive": 2,
+      "max_inclusive": 6
     },
     "half_height": 2
   }

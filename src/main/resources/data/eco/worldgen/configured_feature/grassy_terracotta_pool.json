@@ -9,12 +9,10 @@
     "vegetation_chance": 0.1,
     "xz_radius": {
       "type": "minecraft:uniform",
-      "value": {
-        "min_inclusive": 4,
-        "max_inclusive": 7
-      }
+      "min_inclusive": 4,
+      "max_inclusive": 7
     },
-    "replaceable": "#eco:moss_replaceable_plus_sand",
+    "replaceable": "#eco:moss_replaceable_plus_sand.json",
     "ground_state": {
       "type": "minecraft:weighted_state_provider",
       "entries": [
@@ -38,4 +36,3 @@
     }
   }
 }
-  

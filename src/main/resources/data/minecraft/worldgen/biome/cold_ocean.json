@@ -1,18 +1,27 @@
 {
+  "attributes": {
+    "minecraft:visual/fog_color": 12638463,
+    "minecraft:visual/water_fog_color": 272948,
+    "minecraft:visual/sky_color": 9806079,
+    "minecraft:audio/ambient_sounds": {
+      "mood": {
+        "block_search_extent": 8,
+        "offset": 2,
+        "sound": "minecraft:ambient.cave",
+        "tick_delay": 6000
+      }
+    }
+  },
+  "carvers": [
+    "minecraft:cave",
+    "minecraft:cave_extra_underground",
+    "minecraft:canyon"
+  ],
   "temperature": 0.5,
   "downfall": 0.5,
   "has_precipitation": true,
   "effects": {
-    "sky_color": 9806079,
-    "fog_color": 12638463,
-    "water_color": 7318712,
-    "water_fog_color": 272948,
-    "mood_sound": {
-      "sound": "minecraft:ambient.cave",
-      "tick_delay": 6000,
-      "block_search_extent": 8,
-      "offset": 2
-    }
+    "water_color": 7318712
   },
   "spawners": {
     "ambient": [
@@ -114,13 +123,6 @@
     ]
   },
   "spawn_costs": {},
-  "carvers": {
-    "air": [
-      "minecraft:cave",
-      "minecraft:cave_extra_underground",
-      "minecraft:canyon"
-    ]
-  },
   "features": [
     [],
     [
@@ -186,7 +188,6 @@
       "minecraft:patch_pumpkin",
       "eco:large_pumpkin",
       "minecraft:seagrass_cold",
-      "minecraft:seagrass_simple",
       "minecraft:kelp_cold",
       "eco:amethyst_spiral",
       "eco:cave_seagrass_warm",

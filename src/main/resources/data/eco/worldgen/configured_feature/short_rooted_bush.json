@@ -2,14 +2,13 @@
   "type": "minecraft:tree",
   "config": {
     "ignore_vines": true,
-    "force_dirt": false,
     "minimum_size": {
       "type": "minecraft:two_layers_feature_size",
       "limit": 3,
       "lower_size": 0,
       "upper_size": 2
     },
-    "dirt_provider": {
+    "below_trunk_provider": {
       "type": "minecraft:simple_state_provider",
       "state": {
         "Name": "minecraft:dirt"
@@ -48,10 +47,8 @@
       },
       "trunk_offset_y": {
         "type": "minecraft:uniform",
-        "value": {
-          "min_inclusive": 3,
-          "max_inclusive": 7
-        }
+        "min_inclusive": 3,
+        "max_inclusive": 7
       },
       "above_root_placement": {
         "above_root_provider": {
@@ -63,7 +60,7 @@
         "above_root_placement_chance": 0.5
       },
       "mangrove_root_placement": {
-        "max_root_width": 16,
+        "max_root_width": 12,
         "max_root_length": 32,
         "random_skew_chance": 0.2,
         "can_grow_through": "#minecraft:mangrove_roots_can_grow_through",
@@ -103,17 +100,13 @@
       "height_rand_b": 1,
       "extra_branch_steps": {
         "type": "minecraft:uniform",
-        "value": {
-          "min_inclusive": 1,
-          "max_inclusive": 1
-        }
+        "min_inclusive": 1,
+        "max_inclusive": 1
       },
       "extra_branch_length": {
         "type": "minecraft:uniform",
-        "value": {
-          "min_inclusive": 0,
-          "max_inclusive": 1
-        }
+        "min_inclusive": 0,
+        "max_inclusive": 1
       },
       "place_branch_per_log_probability": 0.1,
       "can_grow_through": "#minecraft:mangrove_logs_can_grow_through"

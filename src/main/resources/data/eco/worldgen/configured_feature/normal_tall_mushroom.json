@@ -29,6 +29,25 @@
         }
       }
     },
-    "foliage_radius": 2
+    "foliage_radius": 2,
+    "can_place_on": {
+      "type": "minecraft:matching_blocks",
+      "offset": [
+        0,
+        0,
+        0
+      ],
+      "blocks": [
+        "minecraft:red_sand",
+        "minecraft:sand",
+        "minecraft:gravel",
+        "minecraft:suspicious_gravel",
+        "minecraft:dirt",
+        "minecraft:coarse_dirt",
+        "minecraft:rooted_dirt",
+        "minecraft:grass_block",
+        "minecraft:moss_block"
+      ]
+    }
   }
 }

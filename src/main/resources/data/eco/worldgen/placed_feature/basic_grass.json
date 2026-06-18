@@ -3,13 +3,7 @@
   "placement": [
     {
       "type": "minecraft:count",
-      "count": {
-        "type": "minecraft:uniform",
-        "value": {
-          "min_inclusive": 30,
-          "max_inclusive": 48
-        }
-      }
+      "count": 48
     },
     {
       "type": "minecraft:in_square"
@@ -27,6 +21,34 @@
       }
     },
     {
+      "type": "minecraft:block_predicate_filter",
+      "predicate": {
+        "type": "minecraft:matching_blocks",
+        "blocks": "minecraft:air"
+      }
+    },
+    {
+      "type": "minecraft:block_predicate_filter",
+      "predicate": {
+        "type": "minecraft:not",
+        "predicate": {
+          "type": "minecraft:matching_blocks",
+          "offset": [
+            0,
+            -1,
+            0
+          ],
+          "blocks": [
+            "minecraft:podzol",
+            "minecraft:mud",
+            "minecraft:coarse_dirt",
+            "minecraft:dirt",
+            "minecraft:rooted_dirt"
+          ]
+        }
+      }
+    },
+    {
       "type": "minecraft:environment_scan",
       "direction_of_search": "down",
       "max_steps": 32,
@@ -38,7 +60,7 @@
           0
         ],
         "state": {
-          "Name": "minecraft:grass"
+          "Name": "minecraft:short_grass"
         }
       }
     },

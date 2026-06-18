@@ -1,6 +1,20 @@
 {
-    "pack": {
-        "description": "Terraspherical Expansion Resources",
-        "pack_format": 101.1
-    }
+  "pack": {
+    "min_format": 101,
+    "max_format": 101,
+    "description": [
+      {
+        "text": "Terraspherical Expansion",
+        "color": "#9ac5d9"
+      },
+      {
+        "text": " - Expanding The Terrasphere\nCreated by ",
+        "color": "gray"
+      },
+      {
+        "text": "ErzeKawek",
+        "color": "#1b96cf"
+      }
+    ]
+  }
 }

@@ -46,7 +46,7 @@
             },
             {
               "type": "minecraft:matching_block_tag",
-              "tag": "minecraft:replaceable_plants"
+              "tag": "eco:replaceable_plants"
             }
           ]
         },

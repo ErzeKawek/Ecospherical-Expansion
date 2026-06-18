@@ -5,10 +5,8 @@
       "type": "minecraft:count",
       "count": {
         "type": "minecraft:uniform",
-        "value": {
-          "min_inclusive": 54,
-          "max_inclusive": 96
-        }
+        "min_inclusive": 54,
+        "max_inclusive": 96
       }
     },
     {
@@ -38,7 +36,7 @@
           0
         ],
         "state": {
-          "Name": "minecraft:grass"
+          "Name": "minecraft:short_grass"
         }
       }
     },

@@ -5,11 +5,26 @@
       "type": "minecraft:noise_based_count",
       "noise_to_count_ratio": 32,
       "noise_factor": 150,
-      "noise_offset": -0.5
+      "noise_offset": -0.25
     },
     {
       "type": "minecraft:count",
       "count": 3
+    },
+    {
+      "type": "minecraft:random_offset",
+      "xz_spread": {
+        "type": "minecraft:trapezoid",
+        "min": -4,
+        "max": 4,
+        "plateau": 0
+      },
+      "y_spread": {
+        "type": "minecraft:trapezoid",
+        "min": -2,
+        "max": 2,
+        "plateau": 0
+      }
     },
     {
       "type": "minecraft:in_square"

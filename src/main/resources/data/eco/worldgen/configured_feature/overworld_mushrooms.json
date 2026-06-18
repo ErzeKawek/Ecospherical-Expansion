@@ -1,12 +1,5 @@
 {
-  "type": "minecraft:random_patch",
-  "config": {
-    "tries": 1,
-    "xz_spread": 0,
-    "y_spread": 0,
-    "feature": {
-      "feature": {
-        "type": "minecraft:simple_block",
+"type": "minecraft:simple_block",
         "config": {
           "to_place": {
             "type": "minecraft:weighted_state_provider",
@@ -26,16 +19,4 @@
             ]
           }
         }
-      },
-      "placement": [
-        {
-          "type": "minecraft:block_predicate_filter",
-          "predicate": {
-            "type": "minecraft:matching_blocks",
-            "blocks": "minecraft:air"
-          }
-        }
-      ]
-    }
-  }
 }

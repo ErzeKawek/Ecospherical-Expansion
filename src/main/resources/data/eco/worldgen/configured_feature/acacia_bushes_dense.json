@@ -2,19 +2,19 @@
   "config": {
     "features": [
       {
-        "feature": "terraex:acacia_bush",
+        "feature": "eco:acacia_bush",
         "chance": 0.57
       },
       {
-        "feature": "terraex:rooted_bush",
+        "feature": "eco:rooted_bush",
         "chance": 0.23
       },
       {
-        "feature": "terraex:thin_bush",
+        "feature": "eco:thin_bush",
         "chance": 0.1
       }
     ],
-    "default": "terraex:acacia_bush"
+    "default": "eco:acacia_bush"
   },
   "type": "minecraft:random_selector"
 }

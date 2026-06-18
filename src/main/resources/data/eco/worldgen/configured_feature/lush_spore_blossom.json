@@ -19,8 +19,8 @@
           "data": {
             "Name": "minecraft:glow_lichen",
             "Properties": {
-              "waterlogged": "false",
-              "facing": "down"
+              "down": "true",
+              "waterlogged": "false"
             }
           }
         }

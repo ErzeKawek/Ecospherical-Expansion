@@ -33,6 +33,27 @@
       "type": "minecraft:in_square"
     },
     {
+          "type": "minecraft:block_predicate_filter",
+          "predicate": {
+            "type": "minecraft:all_of",
+            "predicates": [
+              {
+                "type": "minecraft:matching_blocks",
+                "blocks": "minecraft:air"
+              },
+              {
+                "type": "minecraft:would_survive",
+                "state": {
+                  "Name": "minecraft:bamboo",
+                  "Properties": {
+                    "age": "0"
+                  }
+                }
+              }
+            ]
+          }
+        },
+    {
       "max_water_depth": 0,
       "type": "minecraft:surface_water_depth_filter"
     },
